@@ -1,69 +1,47 @@
 use counter::Counter;
-
-fn part1() {
-    
-    let mut list1 = Vec::<u64>::new();
-    let mut list2 = Vec::<u64>::new();
-    
-    include_str!("input.txt")
-        .split("\n")
-        .for_each(|line| {
-            let mut split = line.split(" ");
-            let first = split.next();
-            let mut skip_split = split.skip_while(|token| *token == "" );
-            let second = skip_split.next();
-            //println!("{:?} {:?}", first, second);
-            
-            list1.push(first.unwrap().parse::<u64>().unwrap());
-            list2.push(second.unwrap().parse::<u64>().unwrap());
-        });
-
-    list1.sort();
-    list2.sort();
-    
-    //println!("list1 {:?}",list1);
-    //println!("list2 {:?}",list1);
-    
-    let mut sumdiff = 0u64;
-    for i in 0..list1.len() {
-        let diff = ((list1[i] as i64) - (list2[i] as i64)).abs();
-        sumdiff += diff as u64;
-    }
-    println!("total diff: {}", sumdiff)
-
-}
+use itertools::Itertools;
 
 fn main() {
-    let mut list1 = Vec::<u64>::new();
-    let mut list2 = Vec::<u64>::new();
 
-    include_str!("input.txt")
+    let raw_map = include_str!("input.txt")
         .split("\n")
-        .for_each(|line| {
-            let mut split = line.split(" ");
-            let first = split.next();
-            let mut skip_split = split.skip_while(|token| *token == "" );
-            let second = skip_split.next();
-            //println!("{:?} {:?}", first, second);
+        .collect_vec();
 
-            list1.push(first.unwrap().parse::<u64>().unwrap());
-            list2.push(second.unwrap().parse::<u64>().unwrap());
 
-        });
+    let mut current_rot = 50i64;
+    let mut code = 0;
+    for t in raw_map {
+        if t.trim().is_empty() {
+            continue;
+        }
+        let is_left = t.starts_with("L");
+        let number: &u64 = &t[1..t.len()].to_string().parse().unwrap();
+        println!("{} {}", is_left, number);
 
-    let counts_counts = list2.iter().collect::<Counter<_>>();
-    
-    let mut tot_sum = 0u64;
-    for i in 0..list1.len() {
-        let elem1 = list1[i];
-        let frequency_count = counts_counts.get(&elem1);
-        let row_score = match frequency_count {
-            None => 0u64,
-            Some(count) => elem1 * (*count as u64),
-        };
-        tot_sum += row_score;
-        
+
+        // part 1
+        // if is_left {
+        //     current_rot -= number;
+        // } else {
+        //     current_rot += number;
+        // }
+
+        for n in 0..*number {
+            if is_left {
+                current_rot -= 1;
+            } else {
+                current_rot += 1;
+            }
+
+            current_rot = (current_rot + 100 * 10000) % 100;
+
+            if current_rot == 0 {
+                code += 1;
+            }
+        }
+        println!("current_rot {} code {}", current_rot, code);
     }
-    
-    println!("tot score: {}", tot_sum);
+
+    println!("code {}", code);
+
 }
