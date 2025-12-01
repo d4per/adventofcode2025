@@ -1,0 +1,17 @@
+[package]
+name = "adventofcode2025"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+regex = "1.10.2"
+counter = "0.6.0"
+itertools = "0.13.0"
+num-bigint = "0.4.6"
+num-traits = "0.2.19"
+priority-queue = "2.7.0"
+
+[[bin]]
+name = "a1"
+path = "src/a1/run.rs"
+
