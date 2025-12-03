@@ -15,3 +15,10 @@ priority-queue = "2.7.0"
 name = "a1"
 path = "src/a1/run.rs"
 
+[[bin]]
+name = "a2"
+path = "src/a2/run.rs"
+
+[[bin]]
+name = "a3"
+path = "src/a3/run.rs"
