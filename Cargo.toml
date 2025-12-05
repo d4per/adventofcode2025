@@ -10,6 +10,8 @@ itertools = "0.13.0"
 num-bigint = "0.4.6"
 num-traits = "0.2.19"
 priority-queue = "2.7.0"
+range-set = "0.1.0"
+range-compare = "0.1.1"
 
 [[bin]]
 name = "a1"
@@ -26,3 +28,7 @@ path = "src/a3/run.rs"
 [[bin]]
 name = "a4"
 path = "src/a4/run.rs"
+
+[[bin]]
+name = "a5"
+path = "src/a5/run.rs"
